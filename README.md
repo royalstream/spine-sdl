@@ -8,8 +8,8 @@ Just like **spine-sfml**, two different flavors are offered: one based on [spine
 ## Version Requirements
 
 - Spine animations exported for runtime 4.0.*
-- SDL2 ≥ 2.0.18
-- I also tested it with Emscripten 3.1.9.
+- **SDL2** ≥ 2.0.18 and **SDL_Image**
+- I also tested it with **Emscripten** 3.1.9.
 
 ## Implementation Details
 
@@ -21,7 +21,7 @@ Just like **spine-sfml**, two different flavors are offered: one based on [spine
     - **spine-c** version only:
         - Removed the manual implementation for `spColorArray` and used the `_SP_ARRAY_IMPLEMENT_TYPE` macro instead. This change required the `operator==` to be defined, but this is cleaner than writing the entire implementation by hand.
 
-3. Replaced SFML with SDL2 as follows:
+3. Replaced **SFML** with **SDL2** as follows:
     - Using the **_SP_ARRAY** macros, I created a new array type `spVertexArray` based on `SDL_Vertex` and replaced all references to `sf::VertexArray` with it.
     - Defined the blend modes with `SDL_ComposeCustomBlendMode` using [GerogeChong's code](https://github.com/GerogeChong/spine-sdl) as a starting point.
     - Used `SDL_SetTextureBlendMode` and `SDL_RenderGeometry` for drawing. It's roughtly equivalent to what [rmg-nik's](https://github.com/rmg-nik/sdl_spine_demo/tree/render_geometry) did.
@@ -30,13 +30,13 @@ Just like **spine-sfml**, two different flavors are offered: one based on [spine
         - Implemented `_spAtlasPage_createTexture`/`_spAtlasPage_disposeTexture` using `IMG_Load` and `SDL_CreateTextureFromSurface`. 
         - **Important:** the previous step depends on a external function called `spSDL_getRenderer` that you have to implement yourself, but it's very easy: just return a pointer to the current **SDL_Renderer**
     - **spine-cpp** version only:
-        - Replaced `SFMLTextureLoader` with a new class `SDLTextureLoader` implemented using `IMG_Load` and `SDL_CreateTextureFromSurface`. The constructor takes a pointer to the current
+        - Replaced `SFMLTextureLoader` with a new class `SDLTextureLoader` implemented using `IMG_Load` and `SDL_CreateTextureFromSurface`. The constructor takes a pointer to the current **SDL_Renderer** (so there's no need to define an external function).
 
-4. Copied the examples from **spine-sfml** and made them use **spine-sdl**: 
+4. Modified the examples from **spine-sfml** to use **spine-sdl**: 
     - Replaced the SFML loops with standard SDL loops.
-    - Replaced `sf::Mouse::getPosition` with `SDL_GetMouseState`, `window.clear()` with `SDL_RenderClear`, and `window.display()` with `SDL_RenderPresent`
+    - Replaced `sf::Mouse::getPosition`, `window.clear()` and `window.display()` with `SDL_GetMouseState`, `SDL_RenderClear` and `SDL_RenderPresent` respectively.
     - Commented out the mix blends in the **owl** example because they don't seem to be working as intended.
-    - Fixes to the **c** examples:
+    - Fixes to the [c examples](/c/example):
         - Leak #1: Calls to `spAnimationStateData_dispose` were missing.
         - Leak #2: `SkeletonDrawable` instances never get deleted, but we can create them on the stack like the **cpp** examples do.
 

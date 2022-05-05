@@ -1,11 +1,12 @@
 # Spine Runtime for SDL2
 
-This is the version based on [spine-sfml/cpp](https://github.com/EsotericSoftware/spine-runtimes/tree/4.0/spine-sfml/cpp) (which in turn uses [spine-cpp](https://github.com/EsotericSoftware/spine-runtimes/tree/4.0/spine-cpp))
+This is the version based on [spine-sfml/cpp](https://github.com/EsotericSoftware/spine-runtimes/tree/4.0/spine-sfml/cpp) which in turn uses [spine-cpp](https://github.com/EsotericSoftware/spine-runtimes/tree/4.0/spine-cpp)
 
+You need the headers and sources from those two folders in your project.
 
 ## Documentation
 
-I'm providing the same examples included with **spine-sfml** but modified to use **spine-sdl**
+In the [example](/cpp/example) folder you can find the same test cases included with **spine-sfml** but modified to use **spine-sdl**
 
 A minimalistic example would look like this:
 
