@@ -11,7 +11,11 @@ Just like **spine-sfml**, two different flavors are offered: one based on [spine
 - **SDL2** ≥ 2.0.18 and **SDL_Image**
 - I also tested it with **Emscripten** 3.1.9.
 
-## Implementation Details
+## Documentation
+
+See the [c](/c) or [cpp](/cpp) folders for examples and documentation.
+
+## Implementation Details (you may skip this)
 
 1. The starting point was [spine-sfml](https://github.com/EsotericSoftware/spine-runtimes/tree/4.0/spine-sfml) from the 4.0 branch. Since this implementation is part of the official runtimes, I tried to keep the logic unchanged.
 
@@ -40,6 +44,3 @@ Just like **spine-sfml**, two different flavors are offered: one based on [spine
         - Leak #1: Calls to `spAnimationStateData_dispose` were missing.
         - Leak #2: `SkeletonDrawable` instances never get deleted, but we can create them on the stack like the **cpp** examples do.
 
-## Documentation
-
-See the [c](/c) or [cpp](/cpp) folders for examples and documentation.
